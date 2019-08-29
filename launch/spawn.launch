@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+<!--Spawn empty world-->
+
+  <arg name="world" default="empty"/> 
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find ivr_lab)/worlds/myworld.world"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+
+<!--Spawn robot-->
+  <group ns="/robot">
+	<param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ivr_lab)/urdf/robot.urdf'"/>
+
+	<arg name="x" default="0"/>
+	<arg name="y" default="0"/>
+	<arg name="z" default="0"/>
+
+	<node name="my_robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+	args="-urdf -param robot_description -model my_robot -x $(arg x) -y $(arg y) -z $(arg z)" />
+
+<!-- Load joint controller configurations from YAML file to parameter server -->          
+        <rosparam command="load" file="$(find my_simulations)/config/joints.yaml" />
+
+<!-- load the controllers -->
+	<node name="controller_spawner" pkg="controller_manager" type="spawner"
+		respawn = "false" output ="screen" ns="/robot"
+		args="joint_state_controller
+		joint1_position_controller		
+		joint2_position_controller
+		--timeout 60">
+	</node>
+
+<!-- convert joint states to TF transforms for rviz, etc -->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+	   respawn="false" output="screen">
+           <remap from="/joint_states" to="/robot/joint_states" />
+	</node>
+         
+  </group>
+
+<!--Spawn Camera-->
+
+	<param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ivr_lab)/urdf/camera.urdf'"/>
+
+	<arg name="x" default="-10"/>
+	<arg name="y" default="0"/>
+	<arg name="z" default="0"/>
+
+	<node name="my_camera_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+	args="-urdf -param robot_description -model my_camera -x $(arg x) -y $(arg y) -z $(arg z)" />
+
+</launch>
