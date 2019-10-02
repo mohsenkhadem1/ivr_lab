@@ -31,7 +31,7 @@
 	args="-urdf -param robot_description -model my_robot -x $(arg x) -y $(arg y) -z $(arg z)" />
 
 <!-- Load joint controller configurations from YAML file to parameter server -->          
-        <rosparam command="load" file="$(find my_simulations)/config/joints.yaml" />
+        <rosparam command="load" file="$(find ivr_lab)/config/joints.yaml" />
 
 <!-- load the controllers -->
 	<node name="controller_spawner" pkg="controller_manager" type="spawner"
@@ -39,6 +39,7 @@
 		args="joint_state_controller
 		joint1_position_controller		
 		joint2_position_controller
+                joint3_position_controller
 		--timeout 60">
 	</node>
 
@@ -54,11 +55,14 @@
 
 	<param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ivr_lab)/urdf/camera.urdf'"/>
 
-	<arg name="x" default="-10"/>
+	<arg name="x" default="12"/>
 	<arg name="y" default="0"/>
 	<arg name="z" default="0"/>
+        <arg name="roll" default="0"/>
+        <arg name="pitch" default="0"/>
+        <arg name="yaw" default="3.141592"/>
 
 	<node name="my_camera_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-	args="-urdf -param robot_description -model my_camera -x $(arg x) -y $(arg y) -z $(arg z)" />
+	args="-urdf -param robot_description -model my_camera -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)" />
 
 </launch>

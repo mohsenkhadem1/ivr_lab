@@ -8,6 +8,7 @@ project(ivr_lab)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  message_generation
   controller_manager
   joint_state_controller
   robot_state_publisher
@@ -45,7 +46,10 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add "message_generation" and every package in MSG_DEP_SET to
 ##     find_package(catkin REQUIRED COMPONENTS ...)
 ##   * add "message_runtime" and every package in MSG_DEP_SET to
-##     catkin_package(CATKIN_DEPENDS ...)
+#catkin_package(
+#  CATKIN_DEPENDS 
+#  message_runtime 
+#  )
 ##   * uncomment the add_*_files sections below as needed
 ##     and list every .msg/.srv/.action file to be processed
 ##   * uncomment the generate_messages entry below
@@ -54,8 +58,6 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 # add_message_files(
 #   FILES
-#   Message1.msg
-#   Message2.msg
 # )
 
 ## Generate services in the 'srv' folder
