@@ -7,13 +7,13 @@
   <link name="base">
     <visual>
       <geometry>
-        <cylinder length="1" radius="1"/>
+        <cylinder length="1" radius="0.8"/>
       </geometry>
     <origin rpy="0 0 0"  xyz="0 0 0.5" />
     </visual>
     <collision>
       <geometry>
-        <cylinder length="1" radius="1"/>
+        <cylinder length="1" radius="0.8"/>
       </geometry>
       <origin rpy="0 0 0"  xyz="0 0 0.5" />
     </collision>
@@ -26,13 +26,13 @@
   <link name="link0">
     <visual>
       <geometry>
-        <cylinder length="3" radius="0.5"/>
+        <cylinder length="3" radius="0.35"/>
       </geometry>
     <origin rpy="0 0 0"  xyz="0 0 1.5" />
     </visual>
     <collision>
       <geometry>
-        <cylinder length="3" radius="0.5"/>
+        <cylinder length="3" radius="0.35"/>
       </geometry>
       <origin rpy="0 0 0"  xyz="0 0 1.5" />
     </collision>
@@ -46,13 +46,13 @@
   <link name="link1">
     <visual>
       <geometry>
-        <cylinder length="3" radius="0.3"/>
+        <cylinder length="3" radius="0.2"/>
       </geometry>
     <origin rpy="0 0 0"  xyz="0 0 1.5" />
     </visual>
     <collision>
       <geometry>
-        <cylinder length="3" radius="0.3"/>
+        <cylinder length="3" radius="0.2"/>
       </geometry>
       <origin rpy="0 0 0"  xyz="0 0 1.5" />
     </collision>
@@ -150,18 +150,18 @@
   <link name="sphere2">
     <visual>
       <geometry>
-        <sphere radius="0.2"/>
+        <sphere radius="0.3"/>
       </geometry>
-    <origin rpy="0 0 0"  xyz="0 0 0.1" />
+    <origin rpy="0 0 0"  xyz="0 0 0.15" />
     <material name="red">
        <color rgba="0.8 0 0 1"/>
     </material>
     </visual>
     <collision>
       <geometry>
-       <sphere radius="0.2"/>
+       <sphere radius="0.3"/>
       </geometry>
-      <origin rpy="0 0 0"  xyz="0 0 0.1" />
+      <origin rpy="0 0 0"  xyz="0 0 0.15" />
     </collision>
     <inertial>
       <mass value="0.00001"/>
@@ -200,22 +200,22 @@
     <axis xyz="1 0 0"/>
   </joint>
 
-  <joint name="sphere_base_to_base" type="fixed">
-    <parent link="base"/>
-    <child link="sphere_base"/>
-    <origin rpy="0 0 0" xyz="0 0 1"/>
-  </joint>
-
-  <joint name="sphere0_to_link0" type="fixed">
+  <joint name="sphere_base_to_link0" type="fixed">
     <parent link="link0"/>
-    <child link="sphere0"/>
-    <origin rpy="0 0 0" xyz="0 0 3"/>
+    <child link="sphere_base"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
 
-  <joint name="sphere1_to_link1" type="fixed">
+  <joint name="sphere0_to_link1" type="fixed">
     <parent link="link1"/>
+    <child link="sphere0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <joint name="sphere1_to_link2" type="fixed">
+    <parent link="link2"/>
     <child link="sphere1"/>
-    <origin rpy="0 0 0" xyz="0 0 3"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
 
 
