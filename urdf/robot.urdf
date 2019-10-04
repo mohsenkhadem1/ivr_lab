@@ -18,8 +18,8 @@
       <origin rpy="0 0 0"  xyz="0 0 0.5" />
     </collision>
     <inertial>
-      <mass value="100"/>
-      <inertia ixx="100" ixy="0.0" ixz="0.0" iyy="100" iyz="0.0" izz="50"/>
+      <mass value="1000"/>
+      <inertia ixx="1000" ixy="0.0" ixz="0.0" iyy="1000" iyz="0.0" izz="500"/>
     </inertial>
   </link>
 
