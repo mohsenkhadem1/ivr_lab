@@ -55,7 +55,7 @@
 
 	<param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ivr_lab)/urdf/camera.urdf'"/>
 
-	<arg name="x" default="12"/>
+	<arg name="x" default="15"/>
 	<arg name="y" default="0"/>
 	<arg name="z" default="0"/>
         <arg name="roll" default="0"/>
